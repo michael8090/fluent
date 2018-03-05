@@ -4,7 +4,7 @@ import draw from './draw';
 
 export default function demo() {
   const compositor = new CanvasCompositor();
-  const size = 100;
+  const size = 800;
   compositor.setSize(size, size);
   const r1 = new Polyline(
     0xff0000,
@@ -41,4 +41,14 @@ export default function demo() {
   const ctx = canvas.getContext('2d')!;
   ctx.putImageData(imageData, 0, 0);
   document.body.appendChild(canvas);
+  const line = new Polyline(0x00ffff, []);
+  r1.append(line);
+  document.body.onmousemove = e => {
+    const dot = {
+      x: e.pageX,
+      y: e.pageY
+    };
+    line.points.push(dot);
+    ctx.putImageData(draw(r1, compositor), 0, 0);
+  };
 }

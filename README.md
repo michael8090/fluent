@@ -40,3 +40,7 @@ r1.append(r3);
 ## 运行
 
 yarn && yarn start
+
+## 截图
+
+![demo](./demo.png)
