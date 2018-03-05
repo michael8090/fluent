@@ -2,7 +2,7 @@
 
 包含如下基础部分：
 
-* `GraphicsPrimitive`: 用来描述集合基础元素，如直线、折线、三角形、贝塞尔曲线等
+* `GraphicsPrimitive`: 用来描述基础几何元素，如直线、折线、三角形、贝塞尔曲线等
 * `DisplayObject`: 一个用来描述实际内容的树状结构，基本的信息包含节点的 layout 信息和子节点数组，他包含一个 draw 方法，将内容转化为`GraphicsPrimitive`数组
 * `Compositor`：平台相关的像素化器，将`GraphicsPrimitive`转化为图片数据`ImageData`，工程里只实现了`CanvasCompositor`来演示基本流程
 
