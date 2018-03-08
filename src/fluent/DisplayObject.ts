@@ -1,9 +1,14 @@
 import { Rect } from './types';
 import GraphicsPrimitive from './GraphicsPrimitive';
 
+import Yoga, { Yoga$Node } from 'yoga-layout';
 export default abstract class DisplayObject {
-  rect: Rect;
-  children: DisplayObject[] = [];
+  constructor(
+    public rect: Rect = {x: 0, y: 0, width: 0, height: 0},
+    public layout: Yoga$Node = Yoga.Node.create(),
+    public children: DisplayObject[] = []
+  ) {
+    }
 
   append(child: DisplayObject) {
     this.children.push(child);
