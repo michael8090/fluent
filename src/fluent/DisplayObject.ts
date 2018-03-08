@@ -2,16 +2,27 @@ import { Rect } from './types';
 import GraphicsPrimitive from './GraphicsPrimitive';
 
 import Yoga, { Yoga$Node } from 'yoga-layout';
+
+export interface Params {
+  layout?: Yoga$Node;
+  children?: DisplayObject[];
+}
+
 export default abstract class DisplayObject {
+  computedLayout?: Rect;
+  children: DisplayObject[];
+  layout: Yoga$Node;
   constructor(
-    public rect: Rect = {x: 0, y: 0, width: 0, height: 0},
-    public layout: Yoga$Node = Yoga.Node.create(),
-    public children: DisplayObject[] = []
+    params: Params = {}
   ) {
-    }
+    this.children = [];
+    this.layout = params.layout || Yoga.Node.createDefault();
+    (params.children || []).forEach(c => this.append(c));
+  }
 
   append(child: DisplayObject) {
     this.children.push(child);
+    this.layout.insertChild(child.layout, this.layout.getChildCount());
   }
 
   remove(child: DisplayObject) {

@@ -13,22 +13,27 @@ function loop(v: number, min: number, max: number) {
   return v;
 }
 
-export class Polyline extends DisplayObject {
+export class Rectangle extends DisplayObject {
   color: number;
-  points: Vector[];
-  constructor(params: Params & {color?: number; points?: Vector[]} = {}) {
+  constructor(params: {color?: number} & Params) {
     super(params);
     this.color = params.color || 0x000000;
-    this.points = params.points || [];
   }
   draw() {
-    const { points, color, children, computedLayout } = this;
-    const { length } = points;
-    const {left, top} = computedLayout!;
+    const { color, children, computedLayout } = this;
+    const {left, top, width, height} = computedLayout!;
+    
+    const points: Vector[] = [
+      {x: left, y: top},
+      {x: left + width, y: top},
+      {x: left + width, y: top + height},
+      {x: left, y: top + height}
+    ];
+    const {length} = points;
     return (points.map((p, i) => {
       const next = points[loop(i + 1, 0, length)];
       return new Line({
-        points: [{x: p.x + left, y: p.y + top}, {x: next.x + left, y: next.y + top}],
+        points: [p, next],
         color
       });
     }) as GraphicsPrimitive[]).concat(

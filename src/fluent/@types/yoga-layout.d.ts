@@ -7,8 +7,8 @@
  * @flow
  * @format
  */
-export default _Yoga;
-declare const _Yoga: Yoga;
+export default Yoga;
+declare const Yoga: Yoga;
 
 declare const CONSTANTS: {
   ALIGN_COUNT: number;

@@ -5,7 +5,8 @@
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts-ts": "2.13.0"
+    "react-scripts-ts": "2.13.0",
+    "yoga-layout": "^1.9.3"
   },
   "scripts": {
     "start": "react-scripts-ts start",

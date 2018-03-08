@@ -4,8 +4,8 @@ export interface Vector {
 }
 
 export interface Rect {
-  x: number;
-  y: number;
+  left: number;
+  top: number;
   width: number;
   height: number;
 }
