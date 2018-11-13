@@ -9,6 +9,16 @@
 具体流程见`draw.ts`，`demo.ts`里用到的示例代码·如下：
 
 ```typescript
+import CanvasCompositor from './compositors/canvas';
+import { Polyline } from './displayObjects/Polyline';
+import draw from './draw';
+import { Rectangle } from './displayObjects/Rectangle';
+import Yoga from 'yoga-layout';
+
+export default function demo() {
+  const compositor = new CanvasCompositor();
+  const size = 600;
+  compositor.setSize(size, size);
   const r1 = new Rectangle({
     color: 0xff0000
   });
@@ -32,6 +42,30 @@
 
   r1.append(r2);
   r1.append(r3);
+
+  const imageData = draw(r1, compositor);
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d')!;
+  ctx.putImageData(imageData, 0, 0);
+  document.body.appendChild(canvas);
+  
+  const line = new Polyline({color: 0x00ffff});
+  line.layout.setPositionType(Yoga.POSITION_TYPE_ABSOLUTE);
+  line.layout.setPosition(Yoga.EDGE_LEFT, 0);
+  line.layout.setPosition(Yoga.EDGE_TOP, 0);
+  r1.append(line);
+
+  document.body.onmousemove = e => {
+    const dot = {
+      x: e.pageX,
+      y: e.pageY
+    };
+    line.points.push(dot);
+    ctx.putImageData(draw(r1, compositor), 0, 0);
+  };
+}
 ```
 
 ## 运行
